@@ -4,9 +4,11 @@ import Browser
 import Html exposing (Html)
 import Html.Attributes exposing (type_, value)
 import Html.Events exposing (onInput, onSubmit)
+import Json.Decode exposing (decodeValue, string)
+import Json.Encode exposing (Value)
 
 
-port incomingMessage : (String -> msg) -> Sub msg
+port incomingMessage : (Value -> msg) -> Sub msg
 
 
 port outgoingMessage : String -> Cmd msg
@@ -49,7 +51,7 @@ init _ =
 
 
 type Message
-    = GotMessage String
+    = GotMessage Value
     | SendMessage
     | DraftChanged String
 
@@ -64,12 +66,17 @@ update msg model =
             in
             ( Model messages "", outgoingMessage model.draft )
 
-        GotMessage message ->
-            let
-                messages =
-                    List.append model.messages [ ChatMessage message Incoming ]
-            in
-            ( { model | messages = messages }, Cmd.none )
+        GotMessage value ->
+            case decodeValue string value of
+                Ok message ->
+                    let
+                        messages =
+                            List.append model.messages [ ChatMessage message Incoming ]
+                    in
+                    ( { model | messages = messages }, Cmd.none )
+
+                Err _ ->
+                    ( model, Cmd.none )
 
         DraftChanged value ->
             ( { model | draft = value }, Cmd.none )
