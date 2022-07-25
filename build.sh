@@ -10,17 +10,17 @@ compressed="$root/public/app.min.js"
 if
 	! command -v uglifyjs >/dev/null 2>&1
 then
-	echo "Error: You need version 0.19.1 of the $(uglifyjs) binary available on your PATH."
-	echo "You can run $(npm install --global uglify-js) to get it."
+	echo "Error: You need to have 'uglifyjs' available on your PATH."
+	echo "You can run 'npm install --global uglify-js' to get it."
 	exit 1
 fi
 
 if
 	! command -v elm >/dev/null 2>&1 || [ "$(elm --version)" != "0.19.1" ]
 then
-	echo "Error: You need version 0.19.1 of the $(elm) binary available on your PATH."
-	echo "You can get the binary from the official website: https://guide.elm-lang.org/install/elm.html."
-	echo "Alternatively you can install it via $(brew) by running $(brew install elm)."
+	echo "Error: You need version 0.19.1 of the 'elm' binary available on your PATH."
+	echo "Option 1: Install the binary from the official website: https://guide.elm-lang.org/install/elm.html."
+	echo "Option 2: Install it via 'brew' by running 'brew install elm'."
 	exit 1
 fi
 
