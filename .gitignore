@@ -1,2 +1,10 @@
-elm-stuff/
+# Files
 .DS_Store
+
+# Directories
+elm-stuff/
+
+# Undesired compiled outputs
+public/app.js
+index.html
+index.js
