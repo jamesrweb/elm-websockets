@@ -47,3 +47,5 @@ echo "Lines of code: "
 find "$root" -type f -name "*.elm" -print0 | while IFS= read -rd '' file; do
 	wc -l "$file"
 done
+
+rm "$uncompressed"
